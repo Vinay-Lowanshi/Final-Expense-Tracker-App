@@ -1,21 +1,34 @@
 const path = require('path'); // Import the 'path' module to work with file paths
 const user=require('../database/schema')
 const signup = (req, res) => {
-    const filePath = path.join(__dirname, '../public/signup.html'); // Replace 'path-to-signup.html' with the actual path to your HTML file
+    const filePath = path.join(__dirname, '../public/signup.html'); 
     res.sendFile(filePath);
 };
 
 const createuser=async(req,res)=>{
     const {firstname,lastname,email,mobile,password}=req.body;
     try{
-        await user.create(
-            {
-                // firstname:firstname,lastname:lastname,email:email,mobile:mobile,password:password}
-                firstname,lastname,email,mobile,password}
+        const user1= await user.findOne({where:{
+            email:email
+        }})
+        console.log(user1)
+        if(user1)
+        {
             
-        )
-        res.send("user created")
-    }
+            return  res.status(409).json("User already exist")
+         
+        }
+        else{
+            await user.create(
+                {
+                    // firstname:firstname,lastname:lastname,email:email,mobile:mobile,password:password}
+                    firstname,lastname,email,mobile,password}
+                
+            )
+            res.send("user created")
+        }
+        }
+        
     catch(err)
     {
         console.log(err)
@@ -23,4 +36,8 @@ const createuser=async(req,res)=>{
    
 }
 
-module.exports = {signup,createuser} // Corrected 'module.exports' statement
+const signin=(req,res)=>{
+    const filePath = path.join(__dirname, '../public/signin.html'); 
+    res.sendFile(filePath);
+}
+module.exports = {signin,signup,createuser} // Corrected 'module.exports' statement

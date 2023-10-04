@@ -85,6 +85,15 @@
     <button onclick="redirectToSignup()">New User</button>
 
     <script>
+        const logindetails={
+            email:e.target.email.value,password:e.target.password.value
+        }
+        axios.post('http://localhost:8000/user/login',logindetails).then((res)=>{
+                alert(res.data.message)
+        }).catch((err)=>{
+            document.body.innerHTML+=`<div>${err.message}</div>`
+        })
+
         function redirectToSignup() {
             window.location.href = "/user/signup";
         }

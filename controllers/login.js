@@ -1,5 +1,5 @@
 const user=require('../database/schema')
-
+const bcrypt=require('bcrypt')
 const login=async(req,res)=>{
     const data=await user.findOne({
         where: {
@@ -9,16 +9,22 @@ const login=async(req,res)=>{
 
         if(data)
         {
-            if(data.password==req.body.password)
-            {
-                res.send("User Login Successfully")
-            }
-            else{
-                res.status(401).json({message:"user not authorized"})
-            }
+            bcrypt.compare(req.body.password,data.password,(err,resp)=>{
+                if(resp)
+                // if(req.body.password==data.password)
+                {
+                   return res.send("User Login Successfully")
+                }
+                else{
+                    return    res.status(401).json({message:"user not authorized"})
+                    }
+            })
+           
+            
         }
-        else{
-            res.status(404).json({message:"user not found"})
+        else
+        {
+         return   res.status(404).json({message:"user not found"})
         }
 
 

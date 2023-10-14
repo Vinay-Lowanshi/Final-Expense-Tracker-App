@@ -2,8 +2,7 @@ const path = require('path'); // Import the 'path' module to work with file path
 const user=require('../database/schema')
 const bcrypt=require('bcrypt')
 const signup = (req, res) => {
-    const filePath = path.join(__dirname, '../public/signup.html'); 
-    res.sendFile(filePath);
+    res.render('signup')
 };
 
 const createuser=async(req,res)=>{
@@ -16,7 +15,7 @@ const createuser=async(req,res)=>{
         if(user1)
         {
             
-            return  res.status(409).json("User already exist")
+           res.render('signin',{messgae:"User is already exist"})
          
         }
         else{
@@ -28,7 +27,7 @@ const createuser=async(req,res)=>{
                         firstname,lastname,email,mobile,password:hash}
                     
                 )
-                res.send("user created")
+                res.render('signin.ejs',{messgae:"user created"})
             })
             
            
@@ -37,13 +36,9 @@ const createuser=async(req,res)=>{
         
     catch(err)
     {
-        console.log(err)
+        res.render('user.ejs',{messgae:err})
     }
    
 }
 
-const signin=(req,res)=>{
-    const filePath = path.join(__dirname, '../public/signin.html'); 
-    res.sendFile(filePath);
-}
-module.exports = {signin,signup,createuser} // Corrected 'module.exports' statement
+module.exports = {signup,createuser} // Corrected 'module.exports' statement

@@ -60,7 +60,7 @@
 <body>
     <div class="signup-container">
         <h1>Sign Up for Money Control</h1>
-        <form id="signup-form" action="createuser" method="POST">
+        <form id="signup-form" action="/createuser" method="POST">
             <div class="form-group">
                 <input type="text" name="firstname" placeholder="First Name" required>
             </div>
@@ -79,6 +79,7 @@
             <div class="form-group">
                 <button type="submit">Sign Up</button>
             </div>
+            <%= locals.message  %>
             
         </form>
     </div>

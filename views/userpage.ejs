@@ -1,0 +1,124 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Expense Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      text-align: center;
+      padding: 10px;
+      margin: 0;
+    }
+
+    form {
+      margin: 20px;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    table {
+      margin: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      width: 100%;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: #ecf0f1;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #d5dbdb;
+    }
+
+    select, button {
+      padding: 5px;
+      margin: 5px;
+    }
+
+    p {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hello, <%= locals.username%></h1>
+
+  <!-- Add Expense Form -->
+  <form method="post" action="/addExpense">
+    <input type="text" name="expenseName" placeholder="Expense Name" required>
+    <input type="text" name="category" placeholder="Category" required>
+    <input type="number" name="amount" placeholder="Amount" required>
+    <button type="submit">Add Expense</button>
+  </form>
+
+  <!-- Expense Table with Category Filter -->
+  <table>
+    <tr>
+      <th>S.No.</th>
+      <th>Expense Name</th>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+
+    <% if(locals.expenses) {%>
+    <% for (let i = 0; i < locals.expenses.length; i++) { %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= expenses[i].expenseName %></td>
+        <td><%= expenses[i].category %></td>
+        <td><%= expenses[i].amount %></td>
+      </tr>
+    <% } %>
+  </table>
+
+  <!-- Category Filter -->
+  <form>
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter">
+      <option value="">All</option>
+      <!-- You can populate this select element dynamically from your expenses array -->
+    </select>
+    <button type="button" onclick="filterTable()">Filter</button>
+  </form>
+
+  <!-- Total Amount -->
+  <p>Total Amount: <%= calculateTotalAmount(expenses) %></p>
+
+  <script>
+    function filterTable() {
+      const selectedCategory = document.getElementById("categoryFilter").value;
+      // Implement JavaScript filtering logic and update the table based on the selected category
+    }
+
+    function calculateTotalAmount(expenses) {
+      // Implement JavaScript logic to calculate the total amount
+    }
+
+    %
+  </script>
+</body>
+</html>

@@ -40,7 +40,7 @@
             border-radius: 4px;
         }
 
-        input[type="submit"] {
+        input[type="submit"], input[type="button"] {
             background-color: #007BFF;
             color: #fff;
             padding: 10px 20px;
@@ -50,7 +50,7 @@
             transition: background-color 0.3s;
         }
 
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, input[type="button"]:hover {
             background-color: #0056b3;
         }
 
@@ -72,7 +72,9 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form id="loginForm" action="/user/login" method="POST">
+    <h2><%= locals.usermsg %></h2>
+    <form id="loginForm" action="/login" method="POST">
+
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
@@ -80,23 +82,9 @@
         <input type="password" id="password" name="password" required><br><br>
 
         <input type="submit" value="Sign In">
+        <input type="button" value="Sign Up" onclick="window.location.href='/signup'">
+
+        <h3><%= message %></h3>
     </form>
-
-    <button onclick="redirectToSignup()">New User</button>
-
-    <script>
-        const logindetails={
-            email:e.target.email.value,password:e.target.password.value
-        }
-        axios.post('http://localhost:8000/user/login',logindetails).then((res)=>{
-                alert(res.data.message)
-        }).catch((err)=>{
-            document.body.innerHTML+=`<div>${err.message}</div>`
-        })
-
-        function redirectToSignup() {
-            window.location.href = "/user/signup";
-        }
-    </script>
 </body>
 </html>

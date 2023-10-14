@@ -13,10 +13,11 @@ const login=async(req,res)=>{
                 if(resp)
                 // if(req.body.password==data.password)
                 {
-                   return res.send("User Login Successfully")
+                    
+                   res.render('userpage',{username:'data.username'})
                 }
                 else{
-                    return    res.status(401).json({message:"user not authorized"})
+                    res.render('signin',{message:"user not authorized"})
                     }
             })
            
@@ -24,7 +25,7 @@ const login=async(req,res)=>{
         }
         else
         {
-         return   res.status(404).json({message:"user not found"})
+         return   res.render('signin',{message:"user not found"})
         }
 
 

@@ -6,7 +6,8 @@ const bodyParser=require('body-parser')
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'))
-app.use('/user',user)
+app.set('view engine', 'ejs');
+app.use('/',user)
 
 app.listen(8000,()=>{
     console.log("server is running")
